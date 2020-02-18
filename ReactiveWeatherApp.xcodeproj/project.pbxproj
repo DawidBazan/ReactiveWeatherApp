@@ -32,6 +32,7 @@
 		989579E523F9A17000CA6398 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 989579E423F9A17000CA6398 /* RxCocoa.framework */; };
 		989579E823F9A53E00CA6398 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 989579E723F9A53E00CA6398 /* RxBlocking.framework */; };
 		989579EC23F9A54000CA6398 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 989579EB23F9A54000CA6398 /* RxRelay.framework */; };
+		98D7608D23FC53E900BF7E15 /* RequestStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D7608C23FC53E900BF7E15 /* RequestStates.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,7 @@
 		989579E723F9A53E00CA6398 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/iOS/RxBlocking.framework; sourceTree = "<group>"; };
 		989579EB23F9A54000CA6398 /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/iOS/RxRelay.framework; sourceTree = "<group>"; };
 		989579EE23F9A54400CA6398 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/iOS/RxTest.framework; sourceTree = "<group>"; };
+		98D7608C23FC53E900BF7E15 /* RequestStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestStates.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +217,7 @@
 				982B6C0923F9C08C00FF1814 /* NetworkService.swift */,
 				982B6C0F23F9C34200FF1814 /* WeatherFetcher.swift */,
 				982B6C0B23F9C12900FF1814 /* ForecastRouter.swift */,
+				98D7608C23FC53E900BF7E15 /* RequestStates.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 				9815627523FAE5C600C0F4BC /* ErrorModel.swift in Sources */,
 				982B6C1223F9C43D00FF1814 /* LocationFetcher.swift in Sources */,
 				982B6C1023F9C34200FF1814 /* WeatherFetcher.swift in Sources */,
+				98D7608D23FC53E900BF7E15 /* RequestStates.swift in Sources */,
 				983D392A23F97D3A004917DA /* WeatherCell.swift in Sources */,
 				982B6C0E23F9C17500FF1814 /* Constants.swift in Sources */,
 				983D38E923F95629004917DA /* CurrentWeatherVC.swift in Sources */,

@@ -14,10 +14,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     let container: Container = {
         let container = Container()
+        
+        //Services
+        container.register(LocationService.self) { _ in Location() }
+        container.register(LocationFetcher.self) { r in
+            LocationFetcher(location: r.resolve(LocationService.self)!)
+        }
+        container.register(NetworkService.self) { _ in Network() }
+        container.register(WeatherFetcher.self) { r in
+            WeatherFetcher(network: r.resolve(NetworkService.self)!)
+        }
+        
+        //ViewModels
         container.register(CurrentWeatherViewModel.self) { r in
-            let viewModel = CurrentWeatherViewModel()
+            let viewModel = CurrentWeatherViewModel(location: r.resolve(LocationFetcher.self)!,
+                                                    weather: r.resolve(WeatherFetcher.self)!)
             return viewModel
         }
+        
+        //ViewControllers
         container.register(CurrentWeatherVC.self) { r in
             let controller = CurrentWeatherVC()
             controller.viewModel = r.resolve(CurrentWeatherViewModel.self)
