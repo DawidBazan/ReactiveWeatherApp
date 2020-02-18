@@ -12,6 +12,22 @@ import RxSwift
 
 struct LocationFetcher {
     let location: LocationService
+    
+    func fetch() -> Observable<UserLocation> {
+        return Observable.create { observer in
+            self.location.fetchLocation { result in
+                switch result {
+                case .success(let location):
+                    self.getUserLocation(from: location) { userLocation in
+                        observer.onNext(userLocation)
+                    }
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
 
     private func getUserLocation(from location: CLLocation, completion: @escaping (UserLocation) -> Void) {
         var currentLocation: UserLocation!
