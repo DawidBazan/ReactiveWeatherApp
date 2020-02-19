@@ -22,12 +22,12 @@
 		983D390723F9562B004917DA /* ReactiveWeatherAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983D390623F9562B004917DA /* ReactiveWeatherAppUITests.swift */; };
 		983D391723F97099004917DA /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 983D391623F97099004917DA /* Alamofire.framework */; };
 		983D391B23F970A1004917DA /* Swinject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 983D391A23F970A1004917DA /* Swinject.framework */; };
-		983D392123F970AD004917DA /* Layoutless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 983D392023F970AD004917DA /* Layoutless.framework */; };
 		983D392A23F97D3A004917DA /* WeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983D392923F97D3A004917DA /* WeatherCell.swift */; };
 		983D392C23F980F4004917DA /* CurrentWeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983D392B23F980F4004917DA /* CurrentWeatherViewModel.swift */; };
 		983D392E23F98244004917DA /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983D392D23F98244004917DA /* WeatherModel.swift */; };
 		983D393023F982D0004917DA /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983D392F23F982D0004917DA /* LocationModel.swift */; };
 		983D393223F98306004917DA /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983D393123F98306004917DA /* LocationService.swift */; };
+		989465A323FDA65000B77629 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989465A223FDA65000B77629 /* Extensions.swift */; };
 		989579E123F9A16A00CA6398 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 989579E023F9A16A00CA6398 /* RxSwift.framework */; };
 		989579E523F9A17000CA6398 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 989579E423F9A17000CA6398 /* RxCocoa.framework */; };
 		989579E823F9A53E00CA6398 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 989579E723F9A53E00CA6398 /* RxBlocking.framework */; };
@@ -74,12 +74,12 @@
 		983D390823F9562B004917DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		983D391623F97099004917DA /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		983D391A23F970A1004917DA /* Swinject.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Swinject.framework; path = Carthage/Build/iOS/Swinject.framework; sourceTree = "<group>"; };
-		983D392023F970AD004917DA /* Layoutless.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Layoutless.framework; path = Carthage/Build/iOS/Layoutless.framework; sourceTree = "<group>"; };
 		983D392923F97D3A004917DA /* WeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCell.swift; sourceTree = "<group>"; };
 		983D392B23F980F4004917DA /* CurrentWeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherViewModel.swift; sourceTree = "<group>"; };
 		983D392D23F98244004917DA /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 		983D392F23F982D0004917DA /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		983D393123F98306004917DA /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		989465A223FDA65000B77629 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		989579E023F9A16A00CA6398 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		989579E423F9A17000CA6398 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 		989579E723F9A53E00CA6398 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/iOS/RxBlocking.framework; sourceTree = "<group>"; };
@@ -95,7 +95,6 @@
 			files = (
 				989579E123F9A16A00CA6398 /* RxSwift.framework in Frameworks */,
 				983D391723F97099004917DA /* Alamofire.framework in Frameworks */,
-				983D392123F970AD004917DA /* Layoutless.framework in Frameworks */,
 				989579E523F9A17000CA6398 /* RxCocoa.framework in Frameworks */,
 				989579EC23F9A54000CA6398 /* RxRelay.framework in Frameworks */,
 				983D391B23F970A1004917DA /* Swinject.framework in Frameworks */,
@@ -147,6 +146,7 @@
 				983D38E423F95629004917DA /* AppDelegate.swift */,
 				983D38E623F95629004917DA /* SceneDelegate.swift */,
 				982B6C0D23F9C17500FF1814 /* Constants.swift */,
+				989465A223FDA65000B77629 /* Extensions.swift */,
 				983D393523F98C4A004917DA /* Services */,
 				983D393423F98C3B004917DA /* Models */,
 				983D393723F98C7A004917DA /* Views */,
@@ -184,7 +184,6 @@
 				989579E723F9A53E00CA6398 /* RxBlocking.framework */,
 				989579E423F9A17000CA6398 /* RxCocoa.framework */,
 				989579E023F9A16A00CA6398 /* RxSwift.framework */,
-				983D392023F970AD004917DA /* Layoutless.framework */,
 				983D391A23F970A1004917DA /* Swinject.framework */,
 				983D391623F97099004917DA /* Alamofire.framework */,
 			);
@@ -405,7 +404,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Swinject.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Layoutless.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxRelay.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxBlocking.framework",
 			);
@@ -417,7 +415,6 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Swinject.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxCocoa.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Layoutless.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxRelay.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxBlocking.framework",
 			);
@@ -443,6 +440,7 @@
 				983D393223F98306004917DA /* LocationService.swift in Sources */,
 				983D392C23F980F4004917DA /* CurrentWeatherViewModel.swift in Sources */,
 				982B6C0A23F9C08C00FF1814 /* NetworkService.swift in Sources */,
+				989465A323FDA65000B77629 /* Extensions.swift in Sources */,
 				983D38E523F95629004917DA /* AppDelegate.swift in Sources */,
 				983D392E23F98244004917DA /* WeatherModel.swift in Sources */,
 				983D393023F982D0004917DA /* LocationModel.swift in Sources */,

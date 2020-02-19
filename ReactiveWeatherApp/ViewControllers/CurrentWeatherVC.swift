@@ -7,61 +7,55 @@
 //
 
 import UIKit
-import Layoutless
 
 class CurrentWeatherVC: UIViewController {
     
     let weatherImageView = UIImageView()
-    let locationLbl = UILabel(style: StyleSheet.location)
-    let descriptionLbl = UILabel(style: StyleSheet.description)
-    let tableView = UITableView(style: StyleSheet.tableView)
+    let locationLbl = UILabel()
+    let descriptionLbl = UILabel()
+    let tableView = UITableView()
     
     var viewModel: CurrentWeatherViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemBackground
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.title = "Weather 🌤"
         self.setupLayout()
         self.setupView()
     }
 
     private func setupLayout() {
-        let layout = stack(.vertical, spacing: 15)(
-            weatherImageView,
-            locationLbl,
-            descriptionLbl,
-            tableView
-        ).fillingParent(insets: 15, relativeToSafeArea: true)
-        layout.layout(in: self.view)
+        
+        locationLbl.font = UIFont.boldSystemFont(ofSize: 25)
+        locationLbl.textColor = .orange
+        locationLbl.text = "Hello World"
+        descriptionLbl.font = UIFont.boldSystemFont(ofSize: 25)
+        descriptionLbl.textColor = .orange
+        descriptionLbl.text = "description"
+        
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.spacing = 10
+        
+        stackView.addArrangedSubview(weatherImageView)
+        stackView.addArrangedSubview(locationLbl)
+        stackView.addArrangedSubview(descriptionLbl)
+        stackView.addArrangedSubview(tableView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.view.addSubview(stackView)
+        
+        //constraints
+        weatherImageView.anchorSize(width: 0, height: 50)
+        locationLbl.anchorSize(width: 0, height: 30)
+        descriptionLbl.anchorSize(width: 0, height: 30)
+        stackView.pinEdges(to: self.view)
     }
     
     private func setupView() {
         self.viewModel.setupTableView(tableView)
-    }
-}
-
-extension CurrentWeatherVC {
-    
-    private enum StyleSheet {
-        static let image = Style<UIImageView> {
-            $0.contentMode = .scaleAspectFit
-            $0.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        }
-        
-        static let location = Style<UILabel> {
-            $0.font = UIFont.systemFont(ofSize: 25, weight: .medium)
-            $0.text = "Poland"
-            $0.textAlignment = .center
-        }
-        
-        static let description = Style<UILabel> {
-            $0.font = UIFont.systemFont(ofSize: 20)
-            $0.text = "Sunny"
-        }
-        
-        static let tableView = Style<UITableView> {
-            $0.backgroundView = UIView()
-            $0.backgroundColor = .systemBackground
-        }
     }
 }

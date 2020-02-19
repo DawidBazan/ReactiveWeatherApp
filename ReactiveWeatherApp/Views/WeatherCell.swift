@@ -7,13 +7,12 @@
 //
 
 import UIKit
-import Layoutless
 
 class WeatherCell: UITableViewCell {
     
     let weatherImageView = UIImageView()
-    let descriptionLbl = UILabel(style: Stylesheet.description)
-    let temperatureLbl = UILabel(style: Stylesheet.temperature)
+    let descriptionLbl = UILabel()
+    let temperatureLbl = UILabel()
     static let cellId = "cell"
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -26,29 +25,29 @@ class WeatherCell: UITableViewCell {
     }
     
     private func setupLayout() {
-        let layout = stack(.horizontal, distribution: .equalCentering)(
-            weatherImageView,
-            descriptionLbl,
-            temperatureLbl
-            ).fillingParent(insets: 15)
-        layout.layout(in: self.contentView)
+        
+        descriptionLbl.textAlignment = .left
+        temperatureLbl.textAlignment = .right
+        
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.spacing = 10
+        
+        stackView.addArrangedSubview(weatherImageView)
+        stackView.addArrangedSubview(descriptionLbl)
+        stackView.addArrangedSubview(temperatureLbl)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+
+        self.addSubview(stackView)
+        
+        //constraints
+        stackView.pinEdges(to: self.contentView, padding: 15)
     }
     
     func setupView(with weather: WeatherData) {
         self.descriptionLbl.text = weather.description
         self.temperatureLbl.text = "\(weather.temperature)"
-    }
-}
-
-extension WeatherCell {
-    
-     private struct Stylesheet {
-        static let description = Style<UILabel> {
-            $0.font = UIFont.systemFont(ofSize: 20)
-            $0.textColor = .blue
-        }
-        static let temperature = Style<UILabel> {
-            $0.font = UIFont.systemFont(ofSize: 35, weight: .medium)
-        }
     }
 }
