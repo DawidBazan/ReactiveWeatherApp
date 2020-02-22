@@ -7,17 +7,16 @@
 //
 
 import UIKit
-import Layoutless
 
 class WeatherCell: UITableViewCell {
     
-    let weatherImageView = UIImageView()
-    let descriptionLbl = UILabel(style: Stylesheet.description)
-    let temperatureLbl = UILabel(style: Stylesheet.temperature)
+    let timeLbl = UILabel()
+    let descriptionLbl = UILabel()
+    let temperatureLbl = UILabel()
     static let cellId = "cell"
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-    super.init(style: style, reuseIdentifier: reuseIdentifier)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setupLayout()
     }
     
@@ -26,29 +25,30 @@ class WeatherCell: UITableViewCell {
     }
     
     private func setupLayout() {
-        let layout = stack(.horizontal, distribution: .equalCentering)(
-            weatherImageView,
-            descriptionLbl,
-            temperatureLbl
-            ).fillingParent(insets: 15)
-        layout.layout(in: self.contentView)
+        
+        timeLbl.textAlignment = .left
+        timeLbl.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        descriptionLbl.textAlignment = .left
+        temperatureLbl.textAlignment = .right
+        temperatureLbl.font = UIFont.systemFont(ofSize: 25, weight: .medium)
+        
+        let leftStack = UIStackView(arrangedSubviews: [timeLbl, descriptionLbl])
+        leftStack.axis = .vertical
+        leftStack.distribution = .fill
+        leftStack.alignment = .fill
+    
+        let stackView = UIStackView(arrangedSubviews: [leftStack, temperatureLbl])
+        stackView.axis = .horizontal
+        stackView.distribution = .equalCentering
+        stackView.alignment = .fill
+        self.addSubview(stackView)
+        
+        stackView.fillSuperview(padding: UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15))
     }
     
     func setupView(with weather: WeatherData) {
+        self.timeLbl.text = weather.time
         self.descriptionLbl.text = weather.description
-        self.temperatureLbl.text = "\(weather.temperature)"
-    }
-}
-
-extension WeatherCell {
-    
-     private struct Stylesheet {
-        static let description = Style<UILabel> {
-            $0.font = UIFont.systemFont(ofSize: 20)
-            $0.textColor = .blue
-        }
-        static let temperature = Style<UILabel> {
-            $0.font = UIFont.systemFont(ofSize: 35, weight: .medium)
-        }
+        self.temperatureLbl.text = UnitFormatter.temperature(weather.temperature, as: .celsius)
     }
 }

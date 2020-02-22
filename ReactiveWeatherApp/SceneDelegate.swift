@@ -26,16 +26,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         //ViewModels
-        container.register(CurrentWeatherViewModel.self) { r in
-            let viewModel = CurrentWeatherViewModel(location: r.resolve(LocationFetcher.self)!,
+        container.register(ForecastViewModel.self) { r in
+            let viewModel = ForecastViewModel(location: r.resolve(LocationFetcher.self)!,
                                                     weather: r.resolve(WeatherFetcher.self)!)
             return viewModel
         }
         
         //ViewControllers
-        container.register(CurrentWeatherVC.self) { r in
-            let controller = CurrentWeatherVC()
-            controller.viewModel = r.resolve(CurrentWeatherViewModel.self)
+        container.register(ForecastVC.self) { r in
+            let controller = ForecastVC()
+            controller.viewModel = r.resolve(ForecastViewModel.self)
             return controller
         }
         return container
@@ -46,7 +46,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = UINavigationController(rootViewController: container.resolve(CurrentWeatherVC.self)!)
+        window?.rootViewController = UINavigationController(rootViewController: container.resolve(ForecastVC.self)!)
         window?.makeKeyAndVisible()
     }
 
