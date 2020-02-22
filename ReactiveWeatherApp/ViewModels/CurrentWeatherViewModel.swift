@@ -16,12 +16,14 @@ class CurrentWeatherViewModel {
     private let weatherFetcher: WeatherFetcher
     
     var userLocation: Observable<UserLocation>?
-    private let currentWeather = BehaviorRelay<[ForecastDay]>(value: [])
+    var forecast: Observable<[ForecastDay]>
+    private let _forecast = BehaviorRelay<[ForecastDay]>(value: [])
     private let disposeBag = DisposeBag()
     
     init(location: LocationFetcher, weather: WeatherFetcher) {
         self.locationFetcher = location
         self.weatherFetcher = weather
+        self.forecast = _forecast.asObservable()
     }
     
     func updateWeather() {
@@ -32,21 +34,20 @@ class CurrentWeatherViewModel {
                 case .loading:
                     print("Loading!")
                 case .loaded(let weather):
-                    self?.currentWeather.accept(weather.forecastDays)
+                    self?._forecast.accept(weather.forecastDays)
                 }
             }).disposed(by: disposeBag)
     }
-
+    
     func setupTableView(_ tableView: UITableView) {
         tableView.tableFooterView = UIView()
         tableView.rowHeight = 70
         tableView.register(WeatherCell.self, forCellReuseIdentifier: WeatherCell.cellId)
     
-        currentWeather.asObservable()
-            .bind(to: tableView.rx.items(cellIdentifier: WeatherCell.cellId, cellType: WeatherCell.self)) { index, forecast, cell in
-            cell.setupView(with: forecast.weather[index])
-        }.disposed(by: disposeBag)
-        
+        forecast
+            .skip(1)
+            .bind(to: tableView.rx.items(dataSource: ForecastDataSource()))
+            .disposed(by: disposeBag)
         self.updateWeather()
     }
 }

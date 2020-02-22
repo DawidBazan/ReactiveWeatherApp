@@ -13,12 +13,13 @@ class CurrentWeatherVC: UIViewController {
     let weatherImageView = UIImageView()
     let locationLbl = UILabel()
     let descriptionLbl = UILabel()
-    let tableView = UITableView()
+    let tableView = UITableView(frame: CGRect.zero, style: .grouped)
     
     var viewModel: CurrentWeatherViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .systemBackground
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.title = "Weather 🌤"
         self.setupLayout()
@@ -26,7 +27,6 @@ class CurrentWeatherVC: UIViewController {
     }
 
     private func setupLayout() {
-        
         locationLbl.font = UIFont.boldSystemFont(ofSize: 25)
         locationLbl.textColor = .orange
         locationLbl.text = "Hello World"
@@ -34,25 +34,15 @@ class CurrentWeatherVC: UIViewController {
         descriptionLbl.textColor = .orange
         descriptionLbl.text = "description"
         
-        let stackView = UIStackView()
+        let stackView = UIStackView(arrangedSubviews: [tableView])
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.spacing = 10
-        
-        stackView.addArrangedSubview(weatherImageView)
-        stackView.addArrangedSubview(locationLbl)
-        stackView.addArrangedSubview(descriptionLbl)
-        stackView.addArrangedSubview(tableView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
         self.view.addSubview(stackView)
         
         //constraints
-        weatherImageView.anchorSize(width: 0, height: 50)
-        locationLbl.anchorSize(width: 0, height: 30)
-        descriptionLbl.anchorSize(width: 0, height: 30)
-        stackView.pinEdges(to: self.view)
+        stackView.fillSuperview()
     }
     
     private func setupView() {

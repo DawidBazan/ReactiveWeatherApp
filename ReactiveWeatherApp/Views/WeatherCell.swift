@@ -16,7 +16,7 @@ class WeatherCell: UITableViewCell {
     static let cellId = "cell"
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-    super.init(style: style, reuseIdentifier: reuseIdentifier)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setupLayout()
     }
     
@@ -29,21 +29,15 @@ class WeatherCell: UITableViewCell {
         descriptionLbl.textAlignment = .left
         temperatureLbl.textAlignment = .right
         
-        let stackView = UIStackView()
+        let stackView = UIStackView(arrangedSubviews: [weatherImageView, descriptionLbl, temperatureLbl])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
         stackView.spacing = 10
-        
-        stackView.addArrangedSubview(weatherImageView)
-        stackView.addArrangedSubview(descriptionLbl)
-        stackView.addArrangedSubview(temperatureLbl)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-
         self.addSubview(stackView)
         
         //constraints
-        stackView.pinEdges(to: self.contentView, padding: 15)
+        stackView.fillSuperview(padding: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15))
     }
     
     func setupView(with weather: WeatherData) {
