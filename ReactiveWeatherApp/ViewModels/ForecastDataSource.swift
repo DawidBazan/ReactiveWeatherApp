@@ -17,7 +17,11 @@ class ForecastDataSource: NSObject, RxTableViewDataSourceType, UITableViewDataSo
     
     func tableView(_ tableView: UITableView, observedEvent: Event<[ForecastDay]>) {
         forecast = observedEvent.element ?? []
-        tableView.reloadData()
+        
+        UIView.transition(with: tableView,
+        duration: 0.5,
+        options: .transitionCrossDissolve,
+        animations: { tableView.reloadData() })
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -37,6 +41,9 @@ class ForecastDataSource: NSObject, RxTableViewDataSourceType, UITableViewDataSo
         let cell = tableView.dequeueReusableCell(withIdentifier: WeatherCell.cellId, for: indexPath) as! WeatherCell
         let weather = forecast[indexPath.section].weather[indexPath.row]
         cell.setupView(with: weather)
+        if indexPath == IndexPath(row: 0, section: 0) {
+            cell.timeLbl.text = "Now"
+        }
         
         return cell
     }

@@ -10,7 +10,7 @@ import UIKit
 
 class WeatherCell: UITableViewCell {
     
-    let weatherImageView = UIImageView()
+    let timeLbl = UILabel()
     let descriptionLbl = UILabel()
     let temperatureLbl = UILabel()
     static let cellId = "cell"
@@ -26,22 +26,29 @@ class WeatherCell: UITableViewCell {
     
     private func setupLayout() {
         
+        timeLbl.textAlignment = .left
+        timeLbl.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         descriptionLbl.textAlignment = .left
         temperatureLbl.textAlignment = .right
+        temperatureLbl.font = UIFont.systemFont(ofSize: 25, weight: .medium)
         
-        let stackView = UIStackView(arrangedSubviews: [weatherImageView, descriptionLbl, temperatureLbl])
+        let leftStack = UIStackView(arrangedSubviews: [timeLbl, descriptionLbl])
+        leftStack.axis = .vertical
+        leftStack.distribution = .fill
+        leftStack.alignment = .fill
+    
+        let stackView = UIStackView(arrangedSubviews: [leftStack, temperatureLbl])
         stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
+        stackView.distribution = .equalCentering
         stackView.alignment = .fill
-        stackView.spacing = 10
         self.addSubview(stackView)
         
-        //constraints
-        stackView.fillSuperview(padding: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15))
+        stackView.fillSuperview(padding: UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15))
     }
     
     func setupView(with weather: WeatherData) {
+        self.timeLbl.text = weather.time
         self.descriptionLbl.text = weather.description
-        self.temperatureLbl.text = "\(weather.temperature)"
+        self.temperatureLbl.text = UnitFormatter.temperature(weather.temperature, as: .celsius)
     }
 }

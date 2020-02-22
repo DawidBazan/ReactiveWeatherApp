@@ -8,14 +8,14 @@
 
 import UIKit
 
-class CurrentWeatherVC: UIViewController {
+class ForecastVC: UIViewController {
     
     let weatherImageView = UIImageView()
     let locationLbl = UILabel()
     let descriptionLbl = UILabel()
     let tableView = UITableView(frame: CGRect.zero, style: .grouped)
     
-    var viewModel: CurrentWeatherViewModel!
+    var viewModel: ForecastViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
