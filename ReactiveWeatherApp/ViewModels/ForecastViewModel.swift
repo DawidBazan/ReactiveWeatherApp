@@ -15,7 +15,7 @@ class ForecastViewModel {
     private let locationFetcher: LocationFetcher
     private let weatherFetcher: WeatherFetcher
     
-    var userLocation: Observable<UserLocation>?
+    private var location: UserLocation?
     private let forecast = BehaviorRelay<[ForecastDay]>(value: [])
     private let disposeBag = DisposeBag()
     
@@ -24,7 +24,7 @@ class ForecastViewModel {
         self.weatherFetcher = weather
     }
     
-    func updateWeather() {
+    private func updateWeather() {
         locationFetcher.fetch()
             .flatMap { self.weatherFetcher.fetch(for: $0) }
             .subscribe(onNext: { [weak self] state in
@@ -32,6 +32,7 @@ class ForecastViewModel {
                 case .loading:
                     print("Loading!")
                 case .loaded(let weather):
+                    self?.location = weather.location
                     self?.forecast.accept(weather.forecastDays)
                 }
             }).disposed(by: disposeBag)
@@ -48,5 +49,13 @@ class ForecastViewModel {
             .bind(to: tableView.rx.items(dataSource: ForecastDataSource()))
             .disposed(by: disposeBag)
         self.updateWeather()
+    }
+    
+    func createDetailedVC(for index: IndexPath) -> DetailedWeatherVC {
+        let details = forecast.value[index.section].weather[index.row]
+        let detailedViewModel = DetailedWeatherViewModel(details: details, location: location)
+        let vc = DetailedWeatherVC()
+        vc.viewModel = detailedViewModel
+        return vc
     }
 }

@@ -7,45 +7,46 @@
 //
 
 import UIKit
+import RxSwift
 
 class ForecastVC: UIViewController {
     
     let weatherImageView = UIImageView()
-    let locationLbl = UILabel()
-    let descriptionLbl = UILabel()
     let tableView = UITableView(frame: CGRect.zero, style: .grouped)
     
     var viewModel: ForecastViewModel!
+    let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemBackground
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.title = "Weather 🌤"
         self.setupLayout()
         self.setupView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.deselectAll()
+    }
 
     private func setupLayout() {
-        locationLbl.font = UIFont.boldSystemFont(ofSize: 25)
-        locationLbl.textColor = .orange
-        locationLbl.text = "Hello World"
-        descriptionLbl.font = UIFont.boldSystemFont(ofSize: 25)
-        descriptionLbl.textColor = .orange
-        descriptionLbl.text = "description"
-        
-        let stackView = UIStackView(arrangedSubviews: [tableView])
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        stackView.alignment = .fill
-        stackView.spacing = 10
-        self.view.addSubview(stackView)
-        
-        //constraints
-        stackView.fillSuperview()
+        self.view.backgroundColor = .systemBackground
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.title = "Weather 🌤"
+        self.view.addSubview(tableView)
+        tableView.fillSuperview()
     }
     
     private func setupView() {
         self.viewModel.setupTableView(tableView)
+        self.tableView.rx.itemSelected.asDriver()
+            .drive(onNext: { [weak self] (indexPath) in
+                guard let detailedVC = self?.viewModel.createDetailedVC(for: indexPath) else { return }
+                self?.navigationController?.pushViewController(detailedVC, animated: true)
+        }).disposed(by: disposeBag)
+    }
+    
+    private func deselectAll() {
+        guard let index = self.tableView.indexPathForSelectedRow else { return }
+        self.tableView.deselectRow(at: index, animated: true)
     }
 }
