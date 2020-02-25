@@ -15,13 +15,16 @@ class ForecastViewModel {
     private let locationFetcher: LocationFetcher
     private let weatherFetcher: WeatherFetcher
     
+    var errorMessage: Observable<String>
     private var location: UserLocation?
     private let forecast = BehaviorRelay<[ForecastDay]>(value: [])
+    private let errorSubject = PublishSubject<String>()
     private let disposeBag = DisposeBag()
     
     init(location: LocationFetcher, weather: WeatherFetcher) {
         self.locationFetcher = location
         self.weatherFetcher = weather
+        self.errorMessage = errorSubject.asObserver()
     }
     
     private func updateWeather() {
@@ -35,12 +38,18 @@ class ForecastViewModel {
                     self?.location = weather.location
                     self?.forecast.accept(weather.forecastDays)
                 }
+                }, onError: { [weak self] error in
+                    guard let err = error as? WeatherError else {
+                        self?.errorSubject.onNext("\(error)")
+                        return
+                    }
+                    self?.errorSubject.onNext(err.message())
             }).disposed(by: disposeBag)
     }
     
     func setupTableView(_ tableView: UITableView) {
         tableView.tableFooterView = UIView()
-
+        
         tableView.rowHeight = 70
         tableView.register(WeatherCell.self, forCellReuseIdentifier: WeatherCell.cellId)
     

@@ -24,7 +24,8 @@ struct Network: NetworkService {
                 let data = response.data
                 completion(.success(data!))
             case .failure(let error):
-                completion(.failure(error))
+                debugPrint(error)
+                completion(.failure(WeatherError.requestFailed))
             }
         }
     }
