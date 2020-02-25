@@ -53,3 +53,19 @@ extension UIView {
                padding: padding)
     }
 }
+
+extension UIViewController {
+    func presentErrorAlert(with message: String) {
+        let title = ""
+        let message = message
+
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { _ in
+            if let url = NSURL(string: UIApplication.openSettingsURLString) as URL? {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+}

@@ -19,7 +19,7 @@ struct WeatherFetcher {
                 switch result {
                 case .success(let data):
                     guard var weather = self.decodeData(data) else {
-                        observer.onError(WeatherError.locationFailed)
+                        observer.onError(WeatherError.decodeFailed)
                         return
                     }
                     weather.location = location

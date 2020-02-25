@@ -43,6 +43,10 @@ class ForecastVC: UIViewController {
                 guard let detailedVC = self?.viewModel.createDetailedVC(for: indexPath) else { return }
                 self?.navigationController?.pushViewController(detailedVC, animated: true)
         }).disposed(by: disposeBag)
+        
+        self.viewModel.errorMessage.subscribe(onNext: { error in
+            self.presentErrorAlert(with: error)
+        }).disposed(by: disposeBag)
     }
     
     private func deselectAll() {
