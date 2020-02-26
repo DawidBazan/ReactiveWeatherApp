@@ -16,6 +16,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let container = Container()
         
         //Services
+        container.register(ReachabilityService.self) { _ in Reachability() }
+        container.register(ReachabilityChecker.self) { r in
+            ReachabilityChecker(reachability: r.resolve(ReachabilityService.self)!)
+        }
         container.register(LocationService.self) { _ in Location() }
         container.register(LocationFetcher.self) { r in
             LocationFetcher(location: r.resolve(LocationService.self)!)
@@ -27,8 +31,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //ViewModels
         container.register(ForecastViewModel.self) { r in
-            let viewModel = ForecastViewModel(location: r.resolve(LocationFetcher.self)!,
-                                                    weather: r.resolve(WeatherFetcher.self)!)
+            let viewModel = ForecastViewModel(reachability: r.resolve(ReachabilityChecker.self)!,
+                                              location: r.resolve(LocationFetcher.self)!,
+                                              weather: r.resolve(WeatherFetcher.self)!)
             return viewModel
         }
         

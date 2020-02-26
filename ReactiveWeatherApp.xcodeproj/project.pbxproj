@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		980E8D52240593B10040A036 /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980E8D51240593B10040A036 /* ReachabilityService.swift */; };
+		980E8D54240594520040A036 /* ReachabilityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980E8D53240594520040A036 /* ReachabilityChecker.swift */; };
 		9815627523FAE5C600C0F4BC /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9815627423FAE5C600C0F4BC /* ErrorModel.swift */; };
 		982B6C0A23F9C08C00FF1814 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982B6C0923F9C08C00FF1814 /* NetworkService.swift */; };
 		982B6C0C23F9C12900FF1814 /* ForecastRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982B6C0B23F9C12900FF1814 /* ForecastRouter.swift */; };
@@ -57,6 +59,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		980E8D51240593B10040A036 /* ReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
+		980E8D53240594520040A036 /* ReachabilityChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityChecker.swift; sourceTree = "<group>"; };
 		9815627423FAE5C600C0F4BC /* ErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
 		982B6C0923F9C08C00FF1814 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		982B6C0B23F9C12900FF1814 /* ForecastRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastRouter.swift; sourceTree = "<group>"; };
@@ -222,6 +226,8 @@
 		983D393523F98C4A004917DA /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				980E8D51240593B10040A036 /* ReachabilityService.swift */,
+				980E8D53240594520040A036 /* ReachabilityChecker.swift */,
 				983D393123F98306004917DA /* LocationService.swift */,
 				982B6C1123F9C43D00FF1814 /* LocationFetcher.swift */,
 				982B6C0923F9C08C00FF1814 /* NetworkService.swift */,
@@ -449,12 +455,14 @@
 				983E95FB2401A1340028DA07 /* DetailedWeatherViewModel.swift in Sources */,
 				983D392A23F97D3A004917DA /* WeatherCell.swift in Sources */,
 				98BCC80424019B740061AA52 /* DetailedWeatherVC.swift in Sources */,
+				980E8D54240594520040A036 /* ReachabilityChecker.swift in Sources */,
 				982B6C0E23F9C17500FF1814 /* Constants.swift in Sources */,
 				983D38E923F95629004917DA /* ForecastVC.swift in Sources */,
 				982B6C0C23F9C12900FF1814 /* ForecastRouter.swift in Sources */,
 				984026892401583A0060D55F /* ForecastDataSource.swift in Sources */,
 				983D393223F98306004917DA /* LocationService.swift in Sources */,
 				983D392C23F980F4004917DA /* ForecastViewModel.swift in Sources */,
+				980E8D52240593B10040A036 /* ReachabilityService.swift in Sources */,
 				982B6C0A23F9C08C00FF1814 /* NetworkService.swift in Sources */,
 				989465A323FDA65000B77629 /* Extensions.swift in Sources */,
 				983D38E523F95629004917DA /* AppDelegate.swift in Sources */,
