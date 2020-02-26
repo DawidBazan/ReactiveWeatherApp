@@ -10,23 +10,23 @@ import Foundation
 import RxSwift
 
 struct ReachabilityChecker {
-    let reachability: ReachabilityService
-    
-    func isReachable() -> Bool {
-        return reachability.isReachable()
-    }
+	let reachability: ReachabilityService
 
-    func updateWhenReachable() -> Observable<Bool> {
-        return Observable.create { observer in
-            self.reachability.reachabilityObserver { result in
-                switch result {
-                case .success:
-                    observer.onNext(true)
-                case .failure(let error):
-                    observer.onError(error)
-                }
-            }
-            return Disposables.create()
-        }
-    }
+	func isReachable() -> Bool {
+		return reachability.isReachable()
+	}
+
+	func updateWhenReachable() -> Observable<Bool> {
+		return Observable.create { observer in
+			self.reachability.reachabilityObserver { result in
+				switch result {
+				case .success:
+					observer.onNext(true)
+				case let .failure(error):
+					observer.onError(error)
+				}
+			}
+			return Disposables.create()
+		}
+	}
 }

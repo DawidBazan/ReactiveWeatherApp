@@ -6,51 +6,50 @@
 //  Copyright © 2020 Dawid Bazan. All rights reserved.
 //
 
-import UIKit
 import RxSwift
+import UIKit
 
 class ForecastVC: UIViewController {
-    
-    let weatherImageView = UIImageView()
-    let tableView = UITableView(frame: CGRect.zero, style: .grouped)
-    
-    var viewModel: ForecastViewModel!
-    let disposeBag = DisposeBag()
+	let weatherImageView = UIImageView()
+	let tableView = UITableView(frame: CGRect.zero, style: .grouped)
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.setupLayout()
-        self.setupView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        self.deselectAll()
-    }
+	var viewModel: ForecastViewModel!
+	let disposeBag = DisposeBag()
 
-    private func setupLayout() {
-        self.view.backgroundColor = .systemBackground
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.title = "Weather 🌤"
-        self.view.addSubview(tableView)
-        tableView.fillSuperview()
-    }
-    
-    private func setupView() {
-        self.viewModel.setupTableView(tableView)
-        self.tableView.rx.itemSelected.asDriver()
-            .drive(onNext: { [weak self] (indexPath) in
-                guard let detailedVC = self?.viewModel.createDetailedVC(for: indexPath) else { return }
-                self?.navigationController?.pushViewController(detailedVC, animated: true)
-        }).disposed(by: disposeBag)
-        
-        self.viewModel.errorMessage.subscribe(onNext: { error in
-            self.presentErrorAlert(with: error)
-        }).disposed(by: disposeBag)
-    }
-    
-    private func deselectAll() {
-        guard let index = self.tableView.indexPathForSelectedRow else { return }
-        self.tableView.deselectRow(at: index, animated: true)
-    }
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		setupLayout()
+		setupView()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(true)
+		deselectAll()
+	}
+
+	private func setupLayout() {
+		view.backgroundColor = .systemBackground
+		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationItem.title = "Weather 🌤"
+		view.addSubview(tableView)
+		tableView.fillSuperview()
+	}
+
+	private func setupView() {
+		viewModel.setupTableView(tableView)
+		tableView.rx.itemSelected.asDriver()
+			.drive(onNext: { [weak self] indexPath in
+				guard let detailedVC = self?.viewModel.createDetailedVC(for: indexPath) else { return }
+				self?.navigationController?.pushViewController(detailedVC, animated: true)
+			}).disposed(by: disposeBag)
+
+		viewModel.errorMessage.subscribe(onNext: { error in
+			self.presentErrorAlert(with: error)
+		}).disposed(by: disposeBag)
+	}
+
+	private func deselectAll() {
+		guard let index = self.tableView.indexPathForSelectedRow else { return }
+		tableView.deselectRow(at: index, animated: true)
+	}
 }

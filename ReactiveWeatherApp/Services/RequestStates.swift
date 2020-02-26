@@ -9,16 +9,16 @@
 import Foundation
 
 enum RequestState<T> {
-    case loading
-    case loaded(T)
+	case loading
+	case loaded(T)
 
-    var isLoading: Bool {
-        guard case .loading = self else { return false }
-        return true
-    }
+	var isLoading: Bool {
+		guard case .loading = self else { return false }
+		return true
+	}
 
-    var data: T? {
-        guard case let .loaded(t) = self else { return nil }
-        return t
-    }
+	var data: T? {
+		guard case let .loaded(t) = self else { return nil }
+		return t
+	}
 }
