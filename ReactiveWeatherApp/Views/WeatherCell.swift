@@ -7,48 +7,46 @@
 //
 
 import UIKit
-import Layoutless
 
 class WeatherCell: UITableViewCell {
-    
-    let weatherImageView = UIImageView()
-    let descriptionLbl = UILabel(style: Stylesheet.description)
-    let temperatureLbl = UILabel(style: Stylesheet.temperature)
-    static let cellId = "cell"
+	let timeLbl = UILabel()
+	let descriptionLbl = UILabel()
+	let temperatureLbl = UILabel()
+	static let cellId = "cell"
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-    super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.setupLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupLayout() {
-        let layout = stack(.horizontal, distribution: .equalCentering)(
-            weatherImageView,
-            descriptionLbl,
-            temperatureLbl
-            ).fillingParent(insets: 15)
-        layout.layout(in: self.contentView)
-    }
-    
-    func setupView(with weather: WeatherData) {
-        self.descriptionLbl.text = weather.description
-        self.temperatureLbl.text = "\(weather.temperature)"
-    }
-}
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		setupLayout()
+	}
 
-extension WeatherCell {
-    
-     private struct Stylesheet {
-        static let description = Style<UILabel> {
-            $0.font = UIFont.systemFont(ofSize: 20)
-            $0.textColor = .blue
-        }
-        static let temperature = Style<UILabel> {
-            $0.font = UIFont.systemFont(ofSize: 35, weight: .medium)
-        }
-    }
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	private func setupLayout() {
+		timeLbl.textAlignment = .left
+		timeLbl.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+		descriptionLbl.textAlignment = .left
+		temperatureLbl.textAlignment = .right
+		temperatureLbl.font = UIFont.systemFont(ofSize: 25, weight: .medium)
+
+		let leftStack = UIStackView(arrangedSubviews: [timeLbl, descriptionLbl])
+		leftStack.axis = .vertical
+		leftStack.distribution = .fill
+		leftStack.alignment = .fill
+
+		let stackView = UIStackView(arrangedSubviews: [leftStack, temperatureLbl])
+		stackView.axis = .horizontal
+		stackView.distribution = .equalCentering
+		stackView.alignment = .fill
+		addSubview(stackView)
+
+		stackView.fillSuperview(padding: UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15))
+	}
+
+	func setupView(with weather: WeatherData) {
+		timeLbl.text = weather.time
+		descriptionLbl.text = weather.description
+		temperatureLbl.text = UnitFormatter.temperature(weather.temperature, as: .celsius)
+	}
 }

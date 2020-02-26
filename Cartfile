@@ -1,4 +1,3 @@
 github "Alamofire/Alamofire"
 github "Swinject/Swinject"
 github "ReactiveX/RxSwift"
-github "DeclarativeHub/Layoutless"
