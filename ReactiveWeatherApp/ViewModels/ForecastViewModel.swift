@@ -12,6 +12,7 @@ import RxSwift
 import RxCocoa
 
 class ForecastViewModel {
+    private let reachabilityChecker: ReachabilityChecker
     private let locationFetcher: LocationFetcher
     private let weatherFetcher: WeatherFetcher
     
@@ -21,14 +22,16 @@ class ForecastViewModel {
     private let errorSubject = PublishSubject<String>()
     private let disposeBag = DisposeBag()
     
-    init(location: LocationFetcher, weather: WeatherFetcher) {
+    init(reachability: ReachabilityChecker, location: LocationFetcher, weather: WeatherFetcher) {
+        self.reachabilityChecker = reachability
         self.locationFetcher = location
         self.weatherFetcher = weather
         self.errorMessage = errorSubject.asObserver()
     }
     
     private func updateWeather() {
-        locationFetcher.fetch()
+        reachabilityChecker.updateWhenReachable()
+            .flatMap { _ in self.locationFetcher.fetch() }
             .flatMap { self.weatherFetcher.fetch(for: $0) }
             .subscribe(onNext: { [weak self] state in
                 switch state {
