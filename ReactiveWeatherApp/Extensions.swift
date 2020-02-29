@@ -67,4 +67,36 @@ extension UIViewController {
 		alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 		present(alert, animated: true, completion: nil)
 	}
+    
+    func presentLoader() {
+    }
+}
+
+var loaderView: UIView?
+ 
+extension UIViewController {
+    func presentLoader(_ view: UIView) {
+        let loadView = UIView.init(frame: view.bounds)
+        let indicator = UIActivityIndicatorView.init(style: .large)
+        indicator.startAnimating()
+        indicator.center = loadView.center
+        
+        DispatchQueue.main.async {
+            loadView.addSubview(indicator)
+            view.addSubview(loadView)
+        }
+        loaderView = loadView
+    }
+    
+    func removeLoader() {
+        DispatchQueue.main.async {
+            UIView.transition(with: self.view,
+                              duration: 0.5,
+                              options: .transitionCrossDissolve,
+                              animations: {
+                                loaderView?.removeFromSuperview()
+                                loaderView = nil
+            })
+        }
+    }
 }
