@@ -16,9 +16,11 @@ class ForecastViewModel {
 	private let locationFetcher: LocationFetcher
 	private let weatherFetcher: WeatherFetcher
 
+    var isLoading: Observable<Bool>
 	var errorMessage: Observable<String>
 	private var location: UserLocation?
 	private let forecast = BehaviorRelay<[ForecastDay]>(value: [])
+    private let loaderSubject = PublishSubject<Bool>()
 	private let errorSubject = PublishSubject<String>()
 	private let disposeBag = DisposeBag()
 
@@ -26,6 +28,7 @@ class ForecastViewModel {
 		reachabilityChecker = reachability
 		locationFetcher = location
 		weatherFetcher = weather
+        isLoading = loaderSubject.asObserver()
 		errorMessage = errorSubject.asObserver()
 	}
 
@@ -36,8 +39,9 @@ class ForecastViewModel {
 			.subscribe(onNext: { [weak self] state in
 				switch state {
 				case .loading:
-					print("Loading!")
+                    self?.loaderSubject.onNext(true)
 				case let .loaded(weather):
+                    self?.loaderSubject.onNext(false)
 					self?.location = weather.location
 					self?.forecast.accept(weather.forecastDays)
 				}

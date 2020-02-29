@@ -36,6 +36,14 @@ class ForecastVC: UIViewController {
 	}
 
 	private func setupView() {
+        viewModel.isLoading.subscribe(onNext: { isLoading in
+            if isLoading {
+                self.presentLoader(self.view)
+            } else {
+                self.removeLoader()
+            }
+        }).disposed(by: disposeBag)
+        
 		viewModel.setupTableView(tableView)
 		tableView.rx.itemSelected.asDriver()
 			.drive(onNext: { [weak self] indexPath in
